@@ -15,7 +15,7 @@ Simply create TFTLIB_SPI object by calling:
               
 List of all usable funcions:
     
-    		void setRotation(uint8_t m);
+    	void setRotation(uint8_t m);
 		void invertColors(uint8_t invert);
 		void tearEffect(uint8_t tear);
 		uint16_t color565(uint8_t r, uint8_t g, uint8_t b);
