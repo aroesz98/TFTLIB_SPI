@@ -343,7 +343,7 @@ void TFTLIB_SPI::init(void){
 	else if(_type == (uint8_t)TFT_DRIVER::ILI9341) {
 		#include "ili9341_drv.h"
 	}
-
+	setRotation(3);
 	fillScreen(GREEN);
 }
 
@@ -562,16 +562,23 @@ void TFTLIB_SPI::setWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
 {
 	if(x0 < 0 || x0 >= _width || x1 < 0 || x1 >= _width || y0 < 0 || y0 >= _height || y1 < 0 || y1 >= _height) return;
 
-	uint16_t col[2] = {SWAP_UINT16(x0), SWAP_UINT16(x1)};
-	uint16_t row[2] = {SWAP_UINT16(y0), SWAP_UINT16(y1)};
-
 	/* Column Address set */
-	writeCommand(CASET);
-	writeData((uint8_t*)col, 4);
+	if(__tx0 != x0 || __tx1 != x1) {
+		uint16_t col[2] = { SWAP_UINT16(x0), SWAP_UINT16(x1) };
+		writeCommand(CASET);
+		writeData((uint8_t*)col, 4);
+		__tx0 = x0;
+		__tx1 = x1;
+	}
 
 	/* Row Address set */
-	writeCommand(RASET);
-	writeData((uint8_t*)row, 4);
+	if(__ty0 != y0 || __ty1 != y1) {
+		uint16_t row[2] = { SWAP_UINT16(y0), SWAP_UINT16(y1) };
+		writeCommand(RASET);
+		writeData((uint8_t*)row, 4);
+		__ty0 = y0;
+		__ty1 = y1;
+	}
 
 	/* Write to RAM */
 	writeCommand(RAMWR);

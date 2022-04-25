@@ -57,7 +57,6 @@
 		}
 	}
 	HAL_Delay(50);
-	setRotation(3);
 }
 
 #endif /* INC_ST7789_DRV_H_ */

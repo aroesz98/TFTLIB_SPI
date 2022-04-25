@@ -140,6 +140,7 @@ class TFTLIB_SPI {
 	private:
 		uint8_t __rotation;
 		int32_t _posx=0, _posy=0;
+		int32_t __tx0 = 0, __ty0 = 0, __tx1 = 0, __ty1 = 0;
 		SPI_HandleTypeDef* _bus;
 		GPIO_TypeDef* CS_PORT;
 		GPIO_TypeDef* DC_PORT;
@@ -148,7 +149,7 @@ class TFTLIB_SPI {
 		uint16_t DC_PIN;
 		uint16_t RST_PIN;
 		uint8_t _type;
-		uint16_t __buffer_size = 640;
+		uint16_t __buffer_size = 1024;
 		uint16_t *__buffer = new uint16_t[__buffer_size];
 		FontDef *__font = &Font_11x18;
 		uint16_t __text_fg = RED, __text_bg = BLACK;
